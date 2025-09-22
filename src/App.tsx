@@ -12,13 +12,17 @@ function App() {
             await auth.removeUser();
         }
     };
-
+    console.log(auth.isLoading);
+    console.log('auth', auth.isAuthenticated);
+    // Show loading while the provider processes redirect callback or loads the user
     if (auth.isLoading) {
         return <div>Loading...</div>;
     }
 
     if (auth.error) {
-        return <div>Encountering error... {auth.error.message}</div>;
+        return <div>Encountering error... {auth.error.message}
+            <button onClick={() => signOutRedirect()}>Sign out</button>
+        </div>;
     }
 
     if (auth.isAuthenticated) {
@@ -37,7 +41,6 @@ function App() {
     return (
         <div>
             <button onClick={() => auth.signinRedirect()}>Sign in</button>
-            <button onClick={() => signOutRedirect()}>Sign out</button>
         </div>
     );
 }
